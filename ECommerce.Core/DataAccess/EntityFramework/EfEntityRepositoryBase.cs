@@ -1,4 +1,5 @@
 ﻿using ECommerce.Core.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,8 +9,14 @@ using System.Threading.Tasks;
 
 namespace ECommerce.Core.DataAccess.EntityFramework
 {
-    public class EfEntityRepositoryBase<TEntity> : IEntityRepository<TEntity> where TEntity : class, IEntity, new()
+    public class EfEntityRepositoryBase<TEntity, TContext> : IEntityRepository<TEntity> where TEntity : class, IEntity, new() where TContext : DbContext, new()
     {
+        protected readonly DbContext _context;
+
+        public EfEntityRepositoryBase(DbContext context)
+        {
+            _context = context;
+        }
         public Task<TEntity> AddAsync(TEntity entity)
         {
             throw new NotImplementedException();

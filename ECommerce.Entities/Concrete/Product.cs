@@ -11,12 +11,14 @@ namespace ECommerce.Entities.Concrete
     public class Product:IEntity
     {
         public int Id { get; set; }
-        public required string  Name { get; set; }
-        public required string  Code { get; set; }
+        public  string  Name { get; set; }
+        public  string  Code { get; set; }
         public  double Price { get; set; }
         public double Quantity { get; set; }
         public bool Deleted { get; set; }
         public DateTime CreateDate { get; set; }=DateTime.Now;
         public DateTime EditDate { get; set; }
+        public int CategoryId { get; set; }
+        public Category Category { get; set; }
     }
 }

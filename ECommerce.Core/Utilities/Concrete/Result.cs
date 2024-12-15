@@ -1,4 +1,5 @@
-﻿using ECommerce.Core.Utilities.ComplexTypes;
+﻿using ECommerce.Core.Utilities.Abstract;
+using ECommerce.Core.Utilities.ComplexTypes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ECommerce.Core.Utilities.Concrete
 {
-    public class Result
+    public class Result :IResult
     {
         public Result(ResultStatus resultStatus)
         {

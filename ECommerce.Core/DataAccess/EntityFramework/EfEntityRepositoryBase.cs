@@ -17,34 +17,57 @@ namespace ECommerce.Core.DataAccess.EntityFramework
         {
             _context = context;
         }
-        public Task<TEntity> AddAsync(TEntity entity)
+        public async Task<TEntity> AddAsync(TEntity entity)
         {
-            throw new NotImplementedException();
+            await _context.Set<TEntity>().AddAsync(entity);
+            await _context.SaveChangesAsync();
+            return entity;
+        }
+        public async Task<bool> AnyAsync(Expression<Func<TEntity, bool>> predicate)
+        {
+            return await _context.Set<TEntity>().AnyAsync(predicate);
         }
 
-        public Task<bool> AnyAsync(Expression<Func<TEntity, bool>> predicate)
+        public async Task<TEntity> DeleteAsync(TEntity entity)
         {
-            throw new NotImplementedException();
+            _context.Remove(entity);
+            return await Task.FromResult(entity);
+
         }
 
-        public Task<TEntity> DeleteAsync(TEntity entity)
+        public async Task<IList<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> predicate = null, params Expression<Func<TEntity, object>>[] includeProperties)
         {
-            throw new NotImplementedException();
+            IQueryable<TEntity> query = _context.Set<TEntity>();
+            if(predicate!=null)
+                query=query.Where(predicate);
+            if (includeProperties.Any())
+            {
+                foreach (var item in includeProperties)
+                {
+                    query = query.Include(item);
+                }
+            }
+            return await query.ToListAsync();
         }
 
-        public Task<IList<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> predicate = null, params Expression<Func<TEntity, object>>[] includeProperties)
+        public async Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> predicate, params Expression<Func<TEntity, object>>[] includeProperties)
         {
-            throw new NotImplementedException();
+           IQueryable<TEntity> query= _context.Set<TEntity>();
+            query = query.Where(predicate);
+            if (includeProperties.Any())
+            {
+                foreach (var item in includeProperties)
+                {
+                    query = query.Include(item);
+                }
+            }
+            return await query.SingleOrDefaultAsync();
         }
 
-        public Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> predicate, params Expression<Func<TEntity, object>>[] includeProperties)
+        public async Task<TEntity> UpdateAsync(TEntity entity)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task<TEntity> UpdateAsync(TEntity entity)
-        {
-            throw new NotImplementedException();
+            _context.Update(entity);
+            return await Task.FromResult(entity);
         }
     }
 }

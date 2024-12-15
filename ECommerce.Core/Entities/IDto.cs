@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ECommerce.Core.Utilities.ComplexTypes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +9,7 @@ namespace ECommerce.Core.Entities
 {
     public interface IDto
     {
+       ResultStatus ResultStatus { get; }
+        string Message { get; }
     }
 }

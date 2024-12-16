@@ -1,4 +1,6 @@
-﻿using ECommerce.Entities.Concrete;
+﻿using ECommerce.DataAccess.Mappings.CategoryMapping;
+using ECommerce.DataAccess.Mappings.ProductMapping;
+using ECommerce.Entities.Concrete;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using System;
@@ -13,10 +15,18 @@ namespace ECommerce.DataAccess.Concrete
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=MyBlogDb;Trusted_Connection=True;");
+            optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=ECommerceDb;Trusted_Connection=true;");
         }
-
+        
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfiguration(new ProductMap());
+            modelBuilder.ApplyConfiguration(new CategoryMap());
+
+
+        }
     }
 }

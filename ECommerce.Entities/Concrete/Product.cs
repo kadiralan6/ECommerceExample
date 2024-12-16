@@ -17,7 +17,7 @@ namespace ECommerce.Entities.Concrete
         public double Quantity { get; set; }
         public bool Deleted { get; set; }
         public bool IsActive { get; set; }
-        public DateTime CreateDate { get; set; }=DateTime.Now;
+        public DateTime CreateDate { get; set; }
         public DateTime EditDate { get; set; }
         public int CategoryId { get; set; }
         public Category Category { get; set; }

@@ -11,11 +11,21 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+//Autofac container
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
-builder.Host.ConfigureContainer<ContainerBuilder>(builder => {
+// Autofac modülünü 
+builder.Host.ConfigureContainer<ContainerBuilder>(builder =>
+{
 
     builder.RegisterModule(new AutofacBusinessModule());
     builder.RegisterModule(new AutofacAutoMapperModule());
+});
+builder.Services.AddCors(a =>
+{
+    a.AddPolicy("AllowAll", builder =>
+    {
+        builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+    });
 });
 
 builder.Services.AddCors();

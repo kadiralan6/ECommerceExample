@@ -15,10 +15,10 @@ namespace ECommerce.Entities.Concrete
         public  string  Code { get; set; }
         public  double Price { get; set; }
         public double Quantity { get; set; }
-        public bool Deleted { get; set; }
+        public bool Deleted { get; set; } = false;
         public bool IsActive { get; set; }
-        public DateTime CreateDate { get; set; }
-        public DateTime EditDate { get; set; }
+        public DateTime CreateDate { get; set; } = DateTime.Now;
+        public DateTime EditDate { get; set; } = DateTime.Now;
         public int CategoryId { get; set; }
         public Category Category { get; set; }
     }

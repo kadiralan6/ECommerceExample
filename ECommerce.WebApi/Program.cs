@@ -1,5 +1,7 @@
 using Autofac;
+using Autofac.Core;
 using Autofac.Extensions.DependencyInjection;
+using ECommerce.Business.AutoMapper;
 using ECommerce.Business.DependencyResolvers.Autofac;
 using System.ComponentModel;
 
@@ -11,6 +13,8 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+
 //Autofac container
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 // Autofac modülünü 

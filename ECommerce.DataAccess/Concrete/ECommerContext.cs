@@ -15,7 +15,8 @@ namespace ECommerce.DataAccess.Concrete
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=ECommerceDb;Trusted_Connection=true;");
+           // optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=ECommerceDb;Trusted_Connection=true;");
+            optionsBuilder.UseSqlServer(@"Server=DESKTOP-1D5ONEF\SQLEXPRESS03;Database=ECommerceDb;Trusted_Connection=true;TrustServerCertificate=True");
         }
         
         public DbSet<Product> Products { get; set; }

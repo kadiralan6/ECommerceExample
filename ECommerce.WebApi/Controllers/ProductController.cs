@@ -27,7 +27,11 @@ namespace ECommerce.WebApi.Controllers
                 return BadRequest();
             else
             {
-                var result = _productService.AddAsync(productAddDto);
+               
+                var    result = await _productService.AddAsync(productAddDto);
+                
+                
+                
                 return Ok(result);
             }
               

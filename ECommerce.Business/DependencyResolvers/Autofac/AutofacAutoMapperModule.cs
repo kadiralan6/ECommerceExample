@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using Autofac;
+using ECommerce.Business.AutoMapper;
 
 namespace ECommerce.Business.DependencyResolvers.Autofac
 {
@@ -19,7 +20,9 @@ namespace ECommerce.Business.DependencyResolvers.Autofac
         {
             var config = new MapperConfiguration(cfg =>
             {
+                cfg.AddProfile(typeof(ProductProfile));
                 cfg.AddMaps(GetType().Assembly);
+                
             });
 
             return config;

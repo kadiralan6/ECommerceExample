@@ -47,6 +47,19 @@ namespace ECommerce.Business.Concrete
             return new DataResult<CategoryListDto>(ResultStatus.Warning,Messages.Category.NotFound ,null);
         }
 
+        public async Task<IDataResult<CategoryDto>> GetAsync(int id)
+        {
+            var category = await _unitOfWork.Categories.GetAsync(a=>a.Id==id);
+            if (category != null)
+            {
+                return new DataResult<CategoryDto>(ResultStatus.Success, new CategoryDto { 
+                category=category,
+                ResultStatus=ResultStatus.Success,
+                });
+            }
+            return new DataResult<CategoryDto>(ResultStatus.Warning, Messages.Category.NotFound, null);
+        }
+
         public async Task<IResult> UpdateOrDeleteAsync(CategoryUpdateOrDeleteDto categoryUpdateOrDeleteDto,bool deleted)
         {
             if (deleted)

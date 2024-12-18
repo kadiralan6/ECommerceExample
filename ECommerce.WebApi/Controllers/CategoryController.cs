@@ -14,8 +14,25 @@ namespace ECommerce.WebApi.Controllers
         {
             _categoryService = categoryService;
         }
+        [HttpGet("admin/getCategories")]
+        public async Task<IActionResult> GetCategories()
+        {
+            var result = await _categoryService.GetAllAsync();
+            return Ok(result);
+        }
+        [HttpGet("admin/getCategoriesById/{id}")]
+        public async Task<IActionResult> GetCategoriesById([FromQuery] int id)
+        {
+            var result = await _categoryService.GetAsync(id);
+            if (result.Data != null)
+            {
+                return Ok(result.Data);
+            }
+            else
+                return BadRequest(result.Message);
 
-        [HttpPost("addCategory")]
+        }
+        [HttpPost("admin/addCategory")]
         public async Task<IActionResult> AddCategory([FromBody] CategoryAddDto categoryAddDto)
         {
             if (categoryAddDto != null)

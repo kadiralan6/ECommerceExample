@@ -18,6 +18,7 @@ namespace ECommerce.DataAccess.Mappings.CategoryMapping
             builder.HasKey(a => a.Id);
             builder.Property(c => c.Id).ValueGeneratedOnAdd();
             builder.Property(a => a.Name).IsRequired().HasMaxLength(100);
+            builder.Property(a => a.SubCategory1).IsRequired().HasMaxLength(100);
             builder.Property(a => a.CreateDate).IsRequired();
             builder.Property(a => a.Deleted).IsRequired();
         }

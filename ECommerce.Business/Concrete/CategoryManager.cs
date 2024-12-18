@@ -26,6 +26,7 @@ namespace ECommerce.Business.Concrete
         }
         public async Task<IResult> AddAsync(CategoryAddDto categoryAddDto)
         {
+            var anyCategories = await _unitOfWork.Categories.GetAllAsync(a => a.Name == categoryAddDto.Name);
             var categoryAdd = _mapper.Map<Category>(categoryAddDto);
             await _unitOfWork.Categories.AddAsync(categoryAdd);
             await _unitOfWork.SaveAsync();

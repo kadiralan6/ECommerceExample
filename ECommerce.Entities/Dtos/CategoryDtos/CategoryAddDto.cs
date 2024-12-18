@@ -7,9 +7,10 @@ using System.Threading.Tasks;
 
 namespace ECommerce.Entities.Dtos.CategoryDtos
 {
-    public class CategoryAddDto : DtoGetBase
+    public class CategoryAddDto 
     {
         public string Name { get; set; }
-        public DateTime CreateDate { get; set; }
+        public string SubCategory1 { get; set; }
+
     }
 }

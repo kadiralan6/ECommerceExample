@@ -21,6 +21,7 @@ namespace ECommerce.Business.DependencyResolvers.Autofac
             var config = new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile(typeof(ProductProfile));
+                cfg.AddProfile(typeof(CategoryProfile));
                 cfg.AddMaps(GetType().Assembly);
                 
             });

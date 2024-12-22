@@ -45,6 +45,29 @@ namespace ECommerce.WebApi.Controllers
                 return BadRequest();
             }
         }
+        [HttpPost("admin/updateOrDeleteCategory")]
+        public async Task<IActionResult> UpdateOrDeleteCategory([FromBody] CategoryUpdateOrDeleteDto category,int type)
+        {
+            if (category != null)
+            {
+                if (type == 1)
+                {
+                    var result = await _categoryService.UpdateOrDeleteAsync(category, true);
+                    return Ok(result.Message);
+                }
+                else
+                {
+                    var result = await _categoryService.UpdateOrDeleteAsync(category, false);
+                    return Ok(result.Message);
+                }
+
+            }
+            else
+            {
+                return BadRequest();
+            }
+
+        }
 
     }
 }

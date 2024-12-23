@@ -32,6 +32,12 @@ namespace ECommerce.WebApi.Controllers
             }
 
         }
+        [HttpPost("getListProduct")]
+        public async Task<IActionResult> GetListProduct()
+        {
+           var  result= await _productService.GetAllAsync();
+            return Ok(result);
+        }
     }
 
 }

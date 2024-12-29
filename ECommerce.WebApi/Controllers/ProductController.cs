@@ -32,11 +32,27 @@ namespace ECommerce.WebApi.Controllers
             }
 
         }
-        [HttpPost("getListProduct")]
+        [HttpGet("getListProduct")]
         public async Task<IActionResult> GetListProduct()
         {
            var  result= await _productService.GetAllAsync();
-            return Ok(result);
+            var cleanedData = result.Data.Products.Select(p => new
+            {
+                p.Id,
+                p.Name,
+                p.Code,
+                p.Price,
+                p.Quantity,
+                p.IsActive,
+                Category = new
+                {
+                    p.Category.Id,
+                    p.Category.Name,
+                    p.Category.SubCategory1
+                }
+            }).ToList();
+
+            return Ok(cleanedData);
         }
     }
 

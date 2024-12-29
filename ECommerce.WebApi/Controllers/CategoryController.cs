@@ -20,6 +20,27 @@ namespace ECommerce.WebApi.Controllers
             var result = await _categoryService.GetAllAsync();
             return Ok(result);
         }
+
+        [HttpGet("admin/getCategoryNames")]
+        public async Task<IActionResult> GetCategoryNames()
+        {
+            var result = await _categoryService.GetAllAsync();
+            var categoryNames = result.Data.Categories.GroupBy(a => a.Name).Select(a => new
+                              {
+                                  Name = a.Key, // GroupBy ile grupladığınız sütun `Key` olarak gelir
+                                  Id = a.FirstOrDefault()?.Id // Her grubun ilk öğesinden ID alırsınız
+                              }).ToList();
+
+            return Ok(categoryNames);
+        }
+        [HttpGet("admin/getSubCategorNames/{name}")]
+        public async Task<IActionResult> GetSubCategorNames( string name)
+        {
+            var result = await _categoryService.GetSubCategory1(name);
+            
+            return Ok(result.Data);
+        }
+
         [HttpGet("admin/getCategoriesById/{id}")]
         public async Task<IActionResult> GetCategoriesById([FromQuery] int id)
         {

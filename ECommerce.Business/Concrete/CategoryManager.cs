@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static ECommerce.Business.Utilities.Messages;
 
 namespace ECommerce.Business.Concrete
 {
@@ -27,7 +28,7 @@ namespace ECommerce.Business.Concrete
         public async Task<IResult> AddAsync(CategoryAddDto categoryAddDto)
         {
             var anyCategories = await _unitOfWork.Categories.GetAllAsync(a => a.Name == categoryAddDto.Name);
-            var categoryAdd = _mapper.Map<Category>(categoryAddDto);
+            var categoryAdd = _mapper.Map<ECommerce.Entities.Concrete.Category>(categoryAddDto);
             await _unitOfWork.Categories.AddAsync(categoryAdd);
             await _unitOfWork.SaveAsync();
             return new Result(ResultStatus.Success, Messages.Category.CategoryAdd);
@@ -60,6 +61,18 @@ namespace ECommerce.Business.Concrete
             return new DataResult<CategoryDto>(ResultStatus.Warning, Messages.Category.NotFound, null);
         }
 
+        public async Task<IDataResult<SubCategory1Dto>> GetSubCategory1(string name)
+        {
+           var category = await _unitOfWork.Categories.GetAllAsync(a=>a.Name==name);
+            if (category != null) {
+                return new DataResult<SubCategory1Dto> (ResultStatus.Success, new SubCategory1Dto
+                {
+                    SubCategory1 = category.Select(a=>a.SubCategory1).ToList(),
+                });
+            }
+            return new DataResult<SubCategory1Dto>(ResultStatus.Warning, Messages.Category.NotFound, null);
+        }
+
         public async Task<IResult> UpdateOrDeleteAsync(CategoryUpdateOrDeleteDto categoryUpdateOrDeleteDto,bool deleted)
         {
             if (deleted)
@@ -76,7 +89,7 @@ namespace ECommerce.Business.Concrete
             }
             else
             {
-                var category = _mapper.Map<Category>(categoryUpdateOrDeleteDto);
+                var category = _mapper.Map<ECommerce.Entities.Concrete.Category>(categoryUpdateOrDeleteDto);
                 await _unitOfWork.Categories.UpdateAsync(category);
                 await _unitOfWork.SaveAsync();
                 return new Result(ResultStatus.Success, Messages.Category.CategoryUpdate);

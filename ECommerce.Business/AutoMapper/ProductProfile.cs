@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using ECommerce.Entities.Concrete;
+using ECommerce.Entities.Dtos.CategoryDtos;
 using ECommerce.Entities.Dtos.ProductDtos;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,15 @@ namespace ECommerce.Business.AutoMapper
                              .ForMember(dest => dest.CreateDate, opt => opt.MapFrom(_ => DateTime.Now))
                              .ForMember(dest => dest.EditDate, opt => opt.MapFrom(_ => DateTime.Now))
                              .ForMember(dest => dest.Deleted, opt => opt.MapFrom(_ => false));
+
+            CreateMap<Product, ProductListShortDto>()
+                               .ForMember(dest => dest.Category, opt => opt.MapFrom(src => new CategoryShortDto
+                               {
+                                   Id = src.Category.Id,
+                                   Name = src.Category.Name,
+                                   SubCategory1 = src.Category.SubCategory1
+                               }));
+            CreateMap<Category, CategoryShortDto>();
         }
 
     }

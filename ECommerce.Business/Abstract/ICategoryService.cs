@@ -12,6 +12,7 @@ namespace ECommerce.Business.Abstract
     public interface ICategoryService
     {
         Task<IDataResult<CategoryListDto>> GetAllAsync();
+        Task<IDataResult<SubCategory1Dto>> GetSubCategory1(string name);
         Task<IDataResult<CategoryDto>> GetAsync(int id);
         Task<IResult> UpdateOrDeleteAsync(CategoryUpdateOrDeleteDto categoryUpdateOrDeleteDto, bool deleted);
         Task<IResult> AddAsync(CategoryAddDto categoryAddDto);

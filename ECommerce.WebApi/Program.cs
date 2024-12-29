@@ -4,6 +4,7 @@ using Autofac.Extensions.DependencyInjection;
 using ECommerce.Business.AutoMapper;
 using ECommerce.Business.DependencyResolvers.Autofac;
 using System.ComponentModel;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,13 +25,20 @@ builder.Host.ConfigureContainer<ContainerBuilder>(builder =>
     builder.RegisterModule(new AutofacBusinessModule());
     builder.RegisterModule(new AutofacAutoMapperModule());
 });
-builder.Services.AddCors(a =>
+builder.Services.AddCors(options =>
 {
-    a.AddPolicy("AllowAll", builder =>
+    options.AddPolicy("AllowLocalhost", policy =>
     {
-        builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+        policy.WithOrigins("http://localhost:4200")  // Angular uygulamanýzýn URL'si
+              .AllowAnyHeader()
+              .AllowAnyMethod();
     });
 });
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+    });
 
 builder.Services.AddCors();
 
@@ -42,7 +50,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+app.UseCors("AllowLocalhost");
 app.UseHttpsRedirection();
 
 app.UseAuthorization();

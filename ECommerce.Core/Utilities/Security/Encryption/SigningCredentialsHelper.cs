@@ -11,7 +11,7 @@ namespace ECommerce.Core.Utilities.Security.Encryption
     {//güvenlik anahtarın bu güvenlik sistemin bu tarzında bir yapıdır bu.
         public static SigningCredentials CreateSigningCredentials(SecurityKey securityKey)
         {
-            return new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha512Signature);//
+            return new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha512Signature);//anahtar, 512 algoritmayı kullan
         }
     }
 }

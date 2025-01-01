@@ -15,6 +15,8 @@ namespace ECommerce.Core.DataAccess
         Task<T> AddAsync(T entity);
         Task<T> UpdateAsync(T entity);
         Task<T> DeleteAsync(T entity);
+        void Add(T entity);
+        T Get(Expression<Func<T, bool>> filter);
         Task<bool> AnyAsync(Expression<Func<T, bool>> predicate);
     }
 }

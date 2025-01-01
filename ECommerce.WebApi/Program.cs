@@ -3,8 +3,15 @@ using Autofac.Core;
 using Autofac.Extensions.DependencyInjection;
 using ECommerce.Business.AutoMapper;
 using ECommerce.Business.DependencyResolvers.Autofac;
+using ECommerce.Core.Utilities.Security.JWT;
 using System.ComponentModel;
 using System.Text.Json.Serialization;
+using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using ECommerce.Core.Utilities.Security.Encryption;
+
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,6 +41,25 @@ builder.Services.AddCors(options =>
               .AllowAnyMethod();
     });
 });
+
+var tokenOptions = builder.Configuration.GetSection("TokenOptions").Get<TokenOptions>();
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+              .AddJwtBearer(options =>
+              {
+                  options.TokenValidationParameters = new TokenValidationParameters
+                  {
+                      ValidateIssuer = true,
+                      ValidateAudience = true,
+                      ValidateLifetime = true,
+                      ValidIssuer = tokenOptions.Issuer,
+                      ValidAudience = tokenOptions.Audience,
+                      ValidateIssuerSigningKey = true,
+                      IssuerSigningKey = SecurityKeyHelper.CreateSecurityKey(tokenOptions.SecurityKey)
+                  };
+              });
+
+
+
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {

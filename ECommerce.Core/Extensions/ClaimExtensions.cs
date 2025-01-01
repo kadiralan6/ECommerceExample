@@ -8,9 +8,11 @@ using System.Threading.Tasks;
 
 namespace ECommerce.Core.Extensions
 {
+    //extension metotlarda hem sınıf hem metot static olmalı
     public static class ClaimExtensions
     {
-        public static void AddEmail(this ICollection<Claim> claims, string email)
+        //claim, genellikle JSON Web Token(JWT) içinde kullanıcıya ait bilgilerin veya özelliklerin temsil edildiği bir yapıdır.
+        public static void AddEmail(this ICollection<Claim> claims, string email) //this mevzuyu extend ediyoz. Bu kod belirli bir email adresini ekleyen extension kodudur.
         {
             claims.Add(new Claim(JwtRegisteredClaimNames.Email, email));
         }

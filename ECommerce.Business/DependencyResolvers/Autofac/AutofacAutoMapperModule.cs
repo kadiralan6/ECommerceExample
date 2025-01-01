@@ -22,6 +22,7 @@ namespace ECommerce.Business.DependencyResolvers.Autofac
             {
                 cfg.AddProfile(typeof(ProductProfile));
                 cfg.AddProfile(typeof(CategoryProfile));
+                cfg.AddProfile(typeof(UserProfile));
                 cfg.AddMaps(GetType().Assembly);
                 
             });

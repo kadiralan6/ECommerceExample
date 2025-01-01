@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace ECommerce.Core.Utilities.Security.Hashing
 {
+    //hash oluşturma ve doğrulama yapılan yer
     public class HashingHelper
     {
         public static void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)

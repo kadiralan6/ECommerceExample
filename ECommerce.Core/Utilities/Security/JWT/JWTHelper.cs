@@ -42,6 +42,7 @@ namespace ECommerce.Core.Utilities.Security.JWT
 
         }
 
+        //ıdentity kütüphanesi kurulmasuı gerek
         public JwtSecurityToken CreateJwtSecurityToken(TokenOptions tokenOptions, User user, SigningCredentials signingCredentials, List<OperationClaim> operationClaims)
         {
             //security jst token oluştururz.Claimler bizim için önemli.

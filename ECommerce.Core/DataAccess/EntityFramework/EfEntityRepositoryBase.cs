@@ -23,6 +23,22 @@ namespace ECommerce.Core.DataAccess.EntityFramework
             await _context.SaveChangesAsync();
             return entity;
         }
+        public void Add(TEntity entity)
+        {
+            using (var context = new TContext())
+            {
+                var addedEntity = context.Entry(entity);
+                addedEntity.State = EntityState.Added;
+                context.SaveChanges();
+            }
+        }
+        public TEntity Get(Expression<Func<TEntity, bool>> filter)
+        {
+            using (var context = new TContext())
+            {
+                return context.Set<TEntity>().SingleOrDefault(filter);
+            }
+        }
         public async Task<bool> AnyAsync(Expression<Func<TEntity, bool>> predicate)
         {
             return await _context.Set<TEntity>().AnyAsync(predicate);

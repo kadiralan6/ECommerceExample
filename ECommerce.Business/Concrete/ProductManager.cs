@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using ECommerce.Business.Abstract;
+using ECommerce.Business.BusinessAspects.BusinessAutofac;
 using ECommerce.Business.Utilities;
 using ECommerce.Core.Utilities.Abstract;
 using ECommerce.Core.Utilities.ComplexTypes;
@@ -25,6 +26,7 @@ namespace ECommerce.Business.Concrete
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
+        [SecuredOperation("admin")]
         public async Task<IResult> AddAsync(ProductAddDto productAddDto)
         {
             var product = _mapper.Map<Product>(productAddDto);
